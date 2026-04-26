@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NewsPulse — Live. Fast. Trusted.</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- Breaking News Ticker -->
+<div class="ticker-bar">
+  <span class="ticker-label">BREAKING</span>
+  <div class="ticker-track">
+    <div class="ticker-content" id="tickerContent">
+      Global leaders meet for emergency climate summit • Tech giants face new antitrust scrutiny • Scientists discover potential cure for rare disease • Stock markets hit record highs amid economic optimism • Space agency announces next lunar mission date •
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo-block">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">NewsPulse</span>
+      </a>
+      <span class="tagline">Live. Fast. Trusted.</span>
+    </div>
+
+    <div class="header-controls">
+      <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="Search news…" class="search-input"/>
+        <button class="search-btn" onclick="performSearch()">&#9906;</button>
+      </div>
+      <button class="dark-toggle" id="darkToggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()">☰</button>
+    </div>
+  </div>
+
+  <nav class="main-nav" id="mainNav">
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="#trending">Trending</a></li>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="login.html" class="nav-reporter">Reporter Login</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Hero Banner -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Today's Top Story</div>
+    <h1 class="hero-headline" id="heroHeadline">World Leaders Gather for Historic Climate Emergency Summit</h1>
+    <p class="hero-summary" id="heroSummary">Representatives from 140 nations convene in Geneva to finalize binding commitments on carbon neutrality, as scientists warn the window for action is narrowing rapidly.</p>
+    <div class="hero-meta">
+      <span class="hero-cat" id="heroCat">World News</span>
+      <span class="hero-date" id="heroDate"></span>
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+</section>
+
+<!-- Trending Section -->
+<section class="section" id="trending">
+  <div class="section-header">
+    <h2 class="section-title"><span class="accent-dot"></span>Trending Now</h2>
+    <div class="category-filters" id="catFilters">
+      <button class="cf-btn active" onclick="filterNews('all', this)">All</button>
+      <button class="cf-btn" onclick="filterNews('World News', this)">World</button>
+      <button class="cf-btn" onclick="filterNews('Technology', this)">Tech</button>
+      <button class="cf-btn" onclick="filterNews('Science', this)">Science</button>
+      <button class="cf-btn" onclick="filterNews('Health', this)">Health</button>
+    </div>
+  </div>
+  <div class="news-grid" id="newsGrid">
+    <!-- Cards injected by JS -->
+  </div>
+</section>
+
+<!-- Short Stories -->
+<section class="section section-alt" id="shortStories">
+  <div class="section-header">
+    <h2 class="section-title"><span class="accent-dot red"></span>Short Stories</h2>
+  </div>
+  <div class="stories-list" id="storiesList">
+    <!-- Injected by JS -->
+  </div>
+</section>
+
+<!-- Categories Grid -->
+<section class="section" id="categories">
+  <div class="section-header">
+    <h2 class="section-title"><span class="accent-dot gold"></span>Browse Categories</h2>
+  </div>
+  <div class="cat-grid">
+    <a class="cat-card cat-world" onclick="filterNews('World News', null); scrollToTrending()">
+      <span class="cat-icon">🌍</span>
+      <span class="cat-name">World News</span>
+    </a>
+    <a class="cat-card cat-tech" onclick="filterNews('Technology', null); scrollToTrending()">
+      <span class="cat-icon">💻</span>
+      <span class="cat-name">Technology</span>
+    </a>
+    <a class="cat-card cat-science" onclick="filterNews('Science', null); scrollToTrending()">
+      <span class="cat-icon">🔬</span>
+      <span class="cat-name">Science</span>
+    </a>
+    <a class="cat-card cat-health" onclick="filterNews('Health', null); scrollToTrending()">
+      <span class="cat-icon">🏥</span>
+      <span class="cat-name">Health</span>
+    </a>
+    <a class="cat-card cat-intl" onclick="filterNews('International', null); scrollToTrending()">
+      <span class="cat-icon">✈️</span>
+      <span class="cat-name">International</span>
+    </a>
+    <a class="cat-card cat-state" onclick="filterNews('State News', null); scrollToTrending()">
+      <span class="cat-icon">🏛️</span>
+      <span class="cat-name">State News</span>
+    </a>
+    <a class="cat-card cat-local" onclick="filterNews('Local News', null); scrollToTrending()">
+      <span class="cat-icon">📍</span>
+      <span class="cat-name">Local News</span>
+    </a>
+    <a class="cat-card cat-all" onclick="filterNews('all', null); scrollToTrending()">
+      <span class="cat-icon">📰</span>
+      <span class="cat-name">All News</span>
+    </a>
+  </div>
+</section>
+
+<!-- News Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-cat" id="modalCat"></div>
+    <h2 class="modal-title" id="modalTitle"></h2>
+    <div class="modal-meta" id="modalMeta"></div>
+    <img class="modal-img" id="modalImg" src="" alt=""/>
+    <p class="modal-body" id="modalBody"></p>
+    <div class="modal-actions">
+      <button class="action-btn like-btn" id="modalLikeBtn" onclick="toggleModalLike()">♥ Like</button>
+      <button class="action-btn bookmark-btn" id="modalBookmarkBtn" onclick="toggleModalBookmark()">🔖 Save</button>
+    </div>
+    <div class="comment-section">
+      <h4>Comments</h4>
+      <div class="comment-list" id="commentList"></div>
+      <div class="comment-form">
+        <input type="text" id="commentName" placeholder="Your name"/>
+        <textarea id="commentText" placeholder="Write a comment…"></textarea>
+        <button onclick="postComment()">Post Comment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-icon">⚡</span> <strong>NewsPulse</strong>
+      <p>Your trusted source for fast, accurate, and impactful journalism.</p>
+    </div>
+    <div class="footer-links">
+      <h5>Sections</h5>
+      <a href="#trending">Trending</a>
+      <a href="#categories">Categories</a>
+      <a href="#shortStories">Short Stories</a>
+    </div>
+    <div class="footer-links">
+      <h5>Reporter</h5>
+      <a href="login.html">Reporter Login</a>
+      <a href="dashboard.html">Dashboard</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 NewsPulse. All rights reserved.</div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

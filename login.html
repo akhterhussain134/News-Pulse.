@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reporter Login — NewsPulse</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+</head>
+<body class="auth-page">
+
+<div class="auth-container">
+  <div class="auth-left">
+    <a href="index.html" class="logo auth-logo">
+      <span class="logo-icon">⚡</span>
+      <span class="logo-text">NewsPulse</span>
+    </a>
+    <h2 class="auth-tagline">Report the story.<br/>Shape the world.</h2>
+    <p class="auth-sub">Access the Reporter Portal to publish your stories and reach millions of readers across the globe.</p>
+    <div class="auth-stat-row">
+      <div class="auth-stat"><span>4.2M</span>Readers</div>
+      <div class="auth-stat"><span>1,200+</span>Reporters</div>
+      <div class="auth-stat"><span>24/7</span>Publishing</div>
+    </div>
+  </div>
+
+  <div class="auth-right">
+    <div class="auth-card">
+      <h3>Reporter Login</h3>
+      <p class="auth-hint">Use <strong>reporter</strong> / <strong>newspulse123</strong></p>
+      <div id="loginError" class="auth-error" style="display:none">Invalid credentials. Please try again.</div>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="loginUser" placeholder="Enter username" autocomplete="username"/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPass" placeholder="Enter password" autocomplete="current-password"/>
+      </div>
+      <button class="btn-primary full-width" onclick="doLogin()">Login to Dashboard →</button>
+      <a href="index.html" class="auth-back">← Back to NewsPulse</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function doLogin() {
+    const u = document.getElementById('loginUser').value.trim();
+    const p = document.getElementById('loginPass').value.trim();
+    if (u === 'reporter' && p === 'newspulse123') {
+      localStorage.setItem('np_auth', 'true');
+      localStorage.setItem('np_reporter', u);
+      window.location.href = 'dashboard.html';
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+</script>
+</body>
+</html>

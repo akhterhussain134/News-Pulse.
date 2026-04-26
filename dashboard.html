@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reporter Dashboard — NewsPulse</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+</head>
+<body class="dashboard-page">
+
+<header class="dash-header">
+  <a href="index.html" class="logo">
+    <span class="logo-icon">⚡</span>
+    <span class="logo-text">NewsPulse</span>
+  </a>
+  <div class="dash-header-right">
+    <span class="dash-user" id="dashUser">📝 Reporter</span>
+    <button class="btn-outline" onclick="doLogout()">Logout</button>
+  </div>
+</header>
+
+<div class="dash-layout">
+  <!-- Sidebar -->
+  <aside class="dash-sidebar">
+    <nav>
+      <a class="dash-nav active" data-tab="publish" onclick="switchTab('publish', this)">📰 Publish Story</a>
+      <a class="dash-nav" data-tab="my-stories" onclick="switchTab('my-stories', this)">📂 My Stories</a>
+      <a class="dash-nav" data-tab="stats" onclick="switchTab('stats', this)">📊 Stats</a>
+    </nav>
+    <div class="dash-tip">
+      <strong>Tip:</strong> Use high-quality image URLs (e.g. Unsplash) for the best appearance on the homepage.
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="dash-main">
+
+    <!-- Publish Tab -->
+    <div class="tab-panel active" id="tab-publish">
+      <div class="dash-section-title">Publish a New Story</div>
+      <div id="publishSuccess" class="dash-success" style="display:none">✅ Story published! It's now live on the homepage.</div>
+
+      <div class="dash-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>News Title *</label>
+            <input type="text" id="newsTitle" placeholder="Enter a compelling headline…"/>
+          </div>
+          <div class="form-group">
+            <label>Category *</label>
+            <select id="newsCategory">
+              <option value="">Select category</option>
+              <option>World News</option>
+              <option>Technology</option>
+              <option>Science</option>
+              <option>Health</option>
+              <option>International</option>
+              <option>State News</option>
+              <option>Local News</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Image URL *</label>
+          <input type="text" id="newsImage" placeholder="https://images.unsplash.com/…"/>
+          <button class="preview-btn" onclick="previewImg()">Preview Image</button>
+          <img id="imgPreview" src="" alt="" class="img-preview" style="display:none"/>
+        </div>
+        <div class="form-group">
+          <label>Article Body *</label>
+          <textarea id="newsBody" rows="7" placeholder="Write the full article here…"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Short Summary (for cards)</label>
+          <input type="text" id="newsSummary" placeholder="One or two sentence summary…"/>
+        </div>
+        <div id="publishError" class="auth-error" style="display:none"></div>
+        <button class="btn-primary" onclick="publishStory()">Publish Story →</button>
+      </div>
+    </div>
+
+    <!-- My Stories Tab -->
+    <div class="tab-panel" id="tab-my-stories">
+      <div class="dash-section-title">My Published Stories</div>
+      <div class="my-stories-list" id="myStoriesList"></div>
+    </div>
+
+    <!-- Stats Tab -->
+    <div class="tab-panel" id="tab-stats">
+      <div class="dash-section-title">Dashboard Stats</div>
+      <div class="stats-grid" id="statsGrid"></div>
+    </div>
+
+  </main>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
